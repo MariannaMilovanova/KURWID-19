@@ -33,7 +33,6 @@
   "exclude": [
     "node_modules",
     "build",
-    ".circleci",
     ".idea",
     "**/*.mock.ts",
     "**/*.stub.ts"
