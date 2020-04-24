@@ -10,6 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "bem-cn": "^3.0.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
@@ -49,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@shelf/eslint-config": "^0.14.2"
+    "@shelf/eslint-config": "^0.14.2",
+    "prettier": "^2.0.5"
   }
 }

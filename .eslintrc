@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["@shelf/eslint-config/frontend-typescript", "plugin:i18next/recommended"],
+  "extends": ["@shelf/eslint-config/frontend-typescript"],
   "settings": {
     "react": {
       "version": "16.9.0"
@@ -12,11 +12,5 @@
       "warn",
       {"ignoreCallee": ["t", "createBlock", "logger", "it", "describe"], "ignoreAttribute": ["displayName"]}
     ]
-  },
-  "globals": {
-    "Rollbar": true,
-    "toastr": true,
-    "DD_LOGS": true,
-    "sweetAlert": true
   }
 }

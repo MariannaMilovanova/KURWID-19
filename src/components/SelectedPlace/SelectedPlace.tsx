@@ -6,4 +6,4 @@
 
     кнопка fill form and open place page - открывается форма заведения - другая страница
 */
-export {}
+export default {}
