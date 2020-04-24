@@ -4,7 +4,14 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "lib": ["dom", "es5", "es6", "es2015", "es7", "es2018"],
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es2015",
+      "es7",
+      "es2018"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -23,6 +30,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules", "build", ".circleci", ".idea", "**/*.mock.ts", "**/*.stub.ts"],
-  "include": ["src"]
+  "exclude": [
+    "node_modules",
+    "build",
+    ".idea",
+    "**/*.mock.ts",
+    "**/*.stub.ts"
+  ],
+  "include": [
+    "src"
+  ]
 }
