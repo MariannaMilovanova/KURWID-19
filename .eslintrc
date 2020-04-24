@@ -7,10 +7,6 @@
     }
   },
   "rules": {
-    "react/prop-types": "warn",
-    "i18next/no-literal-string": [
-      "warn",
-      {"ignoreCallee": ["t", "createBlock", "logger", "it", "describe"], "ignoreAttribute": ["displayName"]}
-    ]
+    "react/prop-types": "warn"
   }
 }
