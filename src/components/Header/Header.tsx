@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import './Header.scss';
 import {b, createBlock} from '../../helpers/bem';
 import Authorization from '../Authorization/Authorization';
+import RulesDropdown from '../RulesDropdown/RulesDropdown'
 /*Types of places and rules - dropdown with types - on click show modal with rules
 кафе, спортзал, кинотеатр, парихмахерские, стоматологические кабинеты, магазины одежды, супермаркеты
 
@@ -16,6 +17,7 @@ export default class Header extends PureComponent {
   render() {
     return (
       <div className={b(block)}>
+        <RulesDropdown />
         <Authorization />
       </div>
     );
