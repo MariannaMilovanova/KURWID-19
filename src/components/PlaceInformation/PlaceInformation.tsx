@@ -43,7 +43,7 @@ function renderTooltip(props) {
     );
 }
 
-function renderTooltipSocialDistance(props) {
+export function renderTooltipSocialDistance(props) {
     return (
         <Tooltip id="button-tooltip" {...props}>
            Safe distance between people and desks is 2-3 meters, having isolated cubicles,
@@ -51,24 +51,24 @@ function renderTooltipSocialDistance(props) {
         </Tooltip>
     );
 }
-function renderTooltipSanitary(props) {
+export function renderTooltipSanitary(props) {
     return (
         <Tooltip id="button-tooltip" {...props}>properly dressed stuff (respirator #FFP, gloves, glasses),
             disinfectants on the tables in the hall and in the bathroom,
             general sanitary</Tooltip>
     );
 }
-function renderTooltipPersonnel(props) {
+export function renderTooltipPersonnel(props) {
     return (
         <Tooltip id="button-tooltip" {...props}>Place is mostly automated and you don't need to interact with personnel a lot</Tooltip>
     );
 }
-function renderTooltipScreening(props) {
+export function renderTooltipScreening(props) {
     return (
         <Tooltip id="button-tooltip" {...props}>Screenning at the entrance</Tooltip>
     );
 }
-function renderTooltipWebapp(props) {
+export function renderTooltipWebapp(props) {
     return (
         <Tooltip id="button-tooltip" {...props}>Automation of process of order
         </Tooltip>

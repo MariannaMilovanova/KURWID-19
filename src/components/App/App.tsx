@@ -8,6 +8,7 @@ import PlaceInformation from '../PlaceInformation/PlaceInformation';
 import Footer from '../Footer/Footer';
 import BlogPage from '../BlogPage/BlogPage';
 import FilterPage from '../FilterPage/FilterPage';
+import ReviewItem from '../ReviewItem/ReviewItem';
 
 //here will be all routes
 declare global {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" component={HomePage} exact />
           <Route path="/place" component={PlaceInformation} />
           <Route path="/blog" component={BlogPage} />
+          <Route path="/review" component={ReviewItem} />
           <Route path="/about-us" component={AboutUs} />
 		  <Route path="/lookup" component={FilterPage} />
         </Switch>
