@@ -1,6 +1,7 @@
 import React from 'react';
 import {map} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import {Image} from 'semantic-ui-react';
 import {Header, Icon} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
@@ -51,7 +52,13 @@ const PlacesList = ({label, icon, iconColor}) => (
     </div>
     <div className={b(block, 'places')}>
       {map(places, (place, key) => (
-        <Place {...place} key={key} />
+        <Link
+          to={{
+            pathname: '/place',
+          }}
+        >
+          <Place {...place} key={key} />
+        </Link>
       ))}
       <div className={b(block, 'see-all')}>See All</div>
     </div>

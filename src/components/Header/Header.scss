@@ -2,6 +2,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 200px;
+  padding: 10px 150px;
   background-color: beige;
+  &__logo-block {
+    display: flex;
+    align-items: center;
+  }
+  &__about-us {
+    padding-left: 40px;
+    font-size: 16px;
+    color: black;
+    font-weight: 700;
+  }
 }

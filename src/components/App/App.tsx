@@ -16,15 +16,15 @@ declare global {
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+        <Header />
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/place" component={PlaceInformation} />
           <Route path="/about-us" component={AboutUs} />
         </Switch>
+        <Footer />
       </Router>
-      <Footer />
     </div>
   );
 }
