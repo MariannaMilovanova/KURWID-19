@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {compose, withProps} from 'recompose';
-import {get, isEmpty, map, uniqueId} from 'lodash';
+import {filter, map, random, round, isEmpty} from 'lodash';
 import {GoogleMap, withGoogleMap} from 'react-google-maps';
 import {MAP} from 'react-google-maps/lib/constants';
-//import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
 import './Map.scss';
 import CustomMarker from '../CustomMarker/CustomMarker';
+import {getRatingColor} from '../../helpers';
 import {b, createBlock} from '../../helpers/bem';
 
 const block = createBlock('Map');
@@ -18,7 +18,7 @@ const block = createBlock('Map');
  при клике на метку появляется блок внизу с инофрмацией про заведение (Selected Place)
 */
 
-class MapComponent extends Component {
+class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
   state = {
     defaultCenter: {lat: 50.45, lng: 30.52},
     currentLocation: {lat: 50.45, lng: 30.52},
@@ -55,7 +55,7 @@ class MapComponent extends Component {
     const {mapObj: map} = this.state;
     const request = {
       location: coord,
-      radius: 1000,
+      radius: 1500,
       type: ['restaurant', 'bar', 'cafe'],
     };
     console.warn(this.state.currentLocation);
@@ -63,32 +63,33 @@ class MapComponent extends Component {
     const service = new window.google.maps.places.PlacesService(map);
     //@ts-ignore
     service.nearbySearch(request, (results, status) => {
-      console.warn('status', status);
+      console.warn('status', results);
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.warn(results);
         const places = results.map((item) => {
           return {
+            ...item,
             position: item.geometry.location,
-            id: item.id,
-            place_id: item.place_id,
-            name: item.name,
             photo: item.photos ? item.photos[0].getUrl() : '',
+            address: item.vicinity,
+            rating: round(random(5, 10, true), 1),
           };
         });
-        this.setState({places});
+        this.setState({places: filter(places, 'photo')});
+        this.props.setPlacesOnMap(places);
       }
     });
   };
   mapMounted = (element) => {
-    const mapObject = element.context[MAP];
-    this.setState({mapObj: mapObject});
+    if (element) {
+      const mapObject = element.context[MAP];
+      this.setState({mapObj: mapObject});
 
-    this.fetchPlaces(mapObject);
+      this.fetchPlaces(mapObject);
+    }
   };
 
   render() {
     const {currentLocation, places} = this.state;
-    console.warn(places);
 
     return (
       <div>
@@ -121,22 +122,18 @@ class MapComponent extends Component {
               ],
             }}
           >
-{/*            <InfoBox position={new google.maps.LatLng(currentLocation.lat, currentLocation.lng)}>
-              <div className={b(block, 'location')}>
-                <div>You are here</div>
-              </div>
-            </InfoBox>*/}
             <CustomMarker
               marker={{position: new google.maps.LatLng(currentLocation.lat, currentLocation.lng)}}
-              key={uniqueId('marker_')}
               selectMarker={() => {}}
               type={'blue'}
+              currentLocation={true}
             />
             {!isEmpty(places) &&
               map(places, (marker) => (
                 <CustomMarker
                   marker={marker}
-                  key={get(marker, '_id', uniqueId('marker_'))}
+                  key={marker.id}
+                  type={getRatingColor(marker.rating)}
                   selectMarker={() => {}}
                 />
               ))}
