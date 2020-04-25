@@ -25,10 +25,12 @@ export default class Header extends PureComponent {
           </Link>
           <div className={b(block, 'navigations')}>
             <Link to={'/'}> Home</Link>
-            <Link to={'/blog'}> Blog</Link>
+            <Link to={'/blog'}> Revizor</Link>
             <Link to={'/about-us'}> About us</Link>
           </div>
         </div>
+
+        <Link className="btn-success btn-lg" to={'/about-us'}> Request Professional Estimation</Link>
         <Authorization />
       </div>
     );
