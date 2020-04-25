@@ -29,6 +29,8 @@ export default class Header extends PureComponent {
             <Link to={'/about-us'}> About us</Link>
           </div>
         </div>
+
+        <Link className="btn-success btn-lg" to={'/about-us'}> Request Professional Estimation</Link>
         <Authorization />
       </div>
     );
