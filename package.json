@@ -2,6 +2,7 @@
   "name": "kurwid-19",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mariannamilovanova.github.io/KURWID-19/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -10,19 +11,30 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "bem-cn": "^3.0.1",
+    "bootstrap": "^4.4.1",
+    "env-cmd": "^10.1.0",
+    "lodash": "^4.17.15",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-google-login": "^5.1.10",
+    "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "recompose": "^0.30.0",
+    "semantic-ui-react": "^0.88.2",
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env react-scripts start",
+    "build": "env-cmd -f .env react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "husky": {
     "hooks": {
@@ -48,6 +60,8 @@
     ]
   },
   "devDependencies": {
-    "@shelf/eslint-config": "^0.14.2"
+    "@shelf/eslint-config": "^0.14.2",
+    "gh-pages": "^2.2.0",
+    "prettier": "^2.0.5"
   }
 }

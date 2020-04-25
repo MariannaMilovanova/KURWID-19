@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from '../../logo.svg';
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import './App.scss';
+import HomePage from '../HomePage/HomePage';
+import Header from '../Header/Header';
+import AboutUs from '../AboutUs/AboutUs';
+import PlaceInformation from '../PlaceInformation/PlaceInformation';
+import Footer from '../Footer/Footer';
+import BlogPage from '../BlogPage/BlogPage';
+
+//here will be all routes
+declare global {
+  const gapi: any;
+  const google: any;
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" component={HomePage} exact />
+          <Route path="/place" component={PlaceInformation} />
+          <Route path="/blog" component={BlogPage} />
+          <Route path="/about-us" component={AboutUs} />
+        </Switch>
+        <Footer />
+      </Router>
     </div>
   );
 }
