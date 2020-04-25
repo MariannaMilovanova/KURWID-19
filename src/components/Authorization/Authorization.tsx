@@ -42,7 +42,6 @@ export default class Authorization extends PureComponent<AuthorizationProps> {
   }
   getUserFromStorage = (id?: string) => {
     const active = id || localStorage.getItem('active');
-    console.warn('active', active);
     if (active) {
       const user = JSON.parse(localStorage.getItem(active) as string);
       this.setState({user});

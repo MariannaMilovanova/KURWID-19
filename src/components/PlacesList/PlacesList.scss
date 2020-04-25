@@ -4,6 +4,11 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
   &__label {
     font-weight: 700;
     font-size: 16px;

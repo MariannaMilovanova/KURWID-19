@@ -48,10 +48,12 @@ export const Filters = ({modificator}) => (
 );
 const PlacesList = ({label, icon, iconColor}) => (
   <div className={b(block)}>
-    <Header as="h2">
-      <Icon name={icon} color={iconColor} />
-      <Header.Content>{label}</Header.Content>
-    </Header>
+    <div className={b(block, 'header')}>
+      <Header as="h2">
+        <Icon name={icon} color={iconColor} />
+        <Header.Content>{label}</Header.Content>
+      </Header>
+    </div>
     <Filters modificator={'row'} />
     <div className={b(block, 'places')}>
       {map(places, (place, key) => (

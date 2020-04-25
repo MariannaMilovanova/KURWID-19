@@ -14,4 +14,17 @@
     color: black;
     font-weight: 700;
   }
+  &__navigations {
+    display: flex;
+    color: navy;
+    font-weight: 700;
+    font-size: 16px;
+    justify-content: space-between;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+        padding: 10px 40px;
+    }
+  }
 }
