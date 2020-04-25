@@ -12,7 +12,6 @@ import SearchResult from '../SearchResult/SearchResult';
 //here will be all routes
 declare global {
   const gapi: any;
-  const google: any;
 }
 
 function App() {

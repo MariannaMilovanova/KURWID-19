@@ -21,7 +21,7 @@ export default class Header extends PureComponent {
       <div className={b(block)}>
         <div className={b(block, 'logo-block')}>
           <Link to={'/'}>
-            <Image src={Logo} size="medium" title={'logo'} wrapped fluid centered rounded />
+            <Image src={Logo} size="medium" title={'logo'} wrapped centered rounded />
           </Link>
           <div className={b(block, 'navigations')}>
             <Link to={'/'}> Home</Link>

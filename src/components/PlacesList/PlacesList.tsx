@@ -27,7 +27,7 @@ const Place = ({name, address, rating, pictureURL}) => (
     <div className={b(block, 'name')}>{name}</div>
     {pictureURL && (
       <div className={b(block, 'image')}>
-        <Image src={pictureURL} size="small" title={name} wrapped fluid centered circular />
+        <Image src={pictureURL} size="small" title={name} wrapped centered circular />
       </div>
     )}
     <div className={b(block, 'address')}>{address}</div>
@@ -53,16 +53,12 @@ const PlacesList = ({label, icon, iconColor}) => (
         <Icon name={icon} color={iconColor} />
         <Header.Content>{label}</Header.Content>
       </Header>
+      <Filters modificator={'row'} />
     </div>
-    <Filters modificator={'row'} />
     <div className={b(block, 'places')}>
       {map(places, (place, key) => (
-        <Link
-          to={{
-            pathname: '/place',
-          }}
-        >
-          <Place {...place} key={key} />
+        <Link to={'/place'} key={key}>
+          <Place {...place} />
         </Link>
       ))}
       <div className={b(block, 'see-all')}>See All</div>
