@@ -23,7 +23,6 @@ class MapComponent extends Component {
   map = React.createRef();
 
   componentDidMount = () => {
-    let map, infoWindow;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -34,12 +33,12 @@ class MapComponent extends Component {
           this.setState({currentLocation: pos});
         },
         function () {
-          console.warn(true, infoWindow, map.getCenter());
+          console.warn('error');
         }
       );
     } else {
       // Browser doesn't support Geolocation
-      console.warn(false, infoWindow, map.getCenter());
+      console.warn(`Browser doen't support Geolocation`);
     }
   };
 
