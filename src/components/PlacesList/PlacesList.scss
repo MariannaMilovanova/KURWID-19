@@ -1,0 +1,53 @@
+.PlacesList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  &__label {
+    font-weight: 700;
+    font-size: 16px;
+  }
+  &__filters {
+    display: flex;
+    flex-direction: row;
+  }
+  &__filter {
+    padding: 5px;
+  }
+  &__places {
+    display: flex;
+    align-items: center;
+  }
+  &__place {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #eee;
+    margin: 10px;
+    cursor: pointer;
+    &:hover {
+      padding: 30px;
+      margin: 0;
+      background-color: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.7)
+    }
+  }
+  &__name {
+    font-size: 14px;
+    padding: 5px;
+    font-weight: 700;
+  }
+  &__image {}
+  &__address {}
+  &__rating {}
+  &__see-all {
+    font-size: 18px;
+    padding: 5px;
+    font-weight: 700;
+    color: chocolate;
+    cursor: pointer;
+    padding-left: 40px;
+  }
+}

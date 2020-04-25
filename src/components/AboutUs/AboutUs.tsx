@@ -1,10 +1,10 @@
 /* информация о нас, контактные данные опизание нашего предложение проверки места, что она подразумевает, и форма связи* / */
 import React, {PureComponent} from 'react';
-// import {b, createBlock} from '../../helpers/bem';
+ import {b, createBlock} from '../../helpers/bem';
 import {Input, Button, Form, Label, Container, Header, Segment} from 'semantic-ui-react';
 import './AboutUs.scss';
 
-// const block = createBlock('AboutUs');
+ const block = createBlock('AboutUs');
 export interface AboutUsInterface {
   errors?: any;
   e?: any;
@@ -57,16 +57,16 @@ export default class AboutUs extends PureComponent<AboutUsInterface> {
     const isValid = this.checkForm();
 
     return (
-      <Container>
+      <Container className={b(block)}>
         <Header as="h1" textAlign="center">
-          Заказ аттестастации заведения
+          Order check certification COVID-19
         </Header>
         <Segment>
           <Form>
             <Form.Field>
-              <Label>Ваше имя</Label>
+              <Label>Name</Label>
               <Input
-                placeholder="Как к вам обращаться?"
+                placeholder="Enter your name"
                 type="text"
                 name="name"
                 value={this.state.name}
@@ -74,7 +74,7 @@ export default class AboutUs extends PureComponent<AboutUsInterface> {
               />
             </Form.Field>
             <Form.Field>
-              <Label>Телефон</Label>
+              <Label>Phone</Label>
               <Input
                 placeholder="+380 1234567"
                 type="tel"
@@ -84,9 +84,9 @@ export default class AboutUs extends PureComponent<AboutUsInterface> {
               />
             </Form.Field>
             <Form.Field>
-              <Label>Адрес заведения</Label>
+              <Label>Enter address</Label>
               <Input
-                placeholder="Киев, ул. Безкоронавирусная 12"
+                placeholder="Lviv, Rynok Square 1"
                 type="text"
                 name="address"
                 value={this.state.address}
@@ -94,7 +94,7 @@ export default class AboutUs extends PureComponent<AboutUsInterface> {
               />
             </Form.Field>
             <Button primary={isValid} onClick={this.sendOrder}>
-              Отправить
+              Send
             </Button>
           </Form>
         </Segment>
