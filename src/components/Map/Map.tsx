@@ -30,7 +30,17 @@ class MapComponent extends Component {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          this.setState({currentLocation: pos});
+          this.setState({currentLocation: pos}, () => {
+            console.warn(this.map.current);
+            const request = {
+              location: pos,
+              radius: '500',
+              type: ['restaurant'],
+            };
+            const service = new google.maps.places.PlacesService(this.map.current);
+            service.nearbySearch(request, (result) => console.warn({result}));
+            console.warn({service})
+          });
         },
         function () {
           console.warn('error');

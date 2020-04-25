@@ -1,5 +1,11 @@
 .Authorization {
   width: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  &__btn {
+    padding-top: 5px;
+  }
 }
 
 .UserData {

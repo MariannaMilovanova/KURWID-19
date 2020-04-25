@@ -1,10 +1,10 @@
 /* информация о нас, контактные данные опизание нашего предложение проверки места, что она подразумевает, и форма связи* / */
 import React, {PureComponent} from 'react';
- import {b, createBlock} from '../../helpers/bem';
-import {Input, Button, Form, Label, Container, Header, Segment} from 'semantic-ui-react';
+import {Button, Container, Form, Header, Input, Label, Segment} from 'semantic-ui-react';
+import {b, createBlock} from '../../helpers/bem';
 import './AboutUs.scss';
 
- const block = createBlock('AboutUs');
+const block = createBlock('AboutUs');
 export interface AboutUsInterface {
   errors?: any;
   e?: any;
@@ -20,9 +20,11 @@ export default class AboutUs extends PureComponent<AboutUsInterface> {
 
   checkForm = () => {
     const {name, phone, address} = this.state;
+
     if (name && phone && address) {
       return true;
     }
+
     return false;
   };
 
