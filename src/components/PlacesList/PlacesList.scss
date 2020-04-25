@@ -11,6 +11,10 @@
   &__filters {
     display: flex;
     flex-direction: row;
+    &--map {
+      align-items: center;
+      justify-content: center;
+    }
   }
   &__filter {
     padding: 5px;

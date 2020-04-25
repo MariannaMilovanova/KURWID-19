@@ -37,19 +37,22 @@ const Place = ({name, address, rating, pictureURL}) => (
   </div>
 );
 
+export const Filters = ({modificator}) => (
+  <div className={b(block, 'filters', [modificator])}>
+    {map(filters, (filter, key) => (
+      <div className={b(block, 'filter')} key={key}>
+        <Checkbox label={filter.label} defaultChecked={filter.defaultChecked} />
+      </div>
+    ))}
+  </div>
+);
 const PlacesList = ({label, icon, iconColor}) => (
   <div className={b(block)}>
     <Header as="h2">
       <Icon name={icon} color={iconColor} />
       <Header.Content>{label}</Header.Content>
     </Header>
-    <div className={b(block, 'filters')}>
-      {map(filters, (filter) => (
-        <div className={b(block, 'filter')}>
-          <Checkbox label={filter.label} defaultChecked={filter.defaultChecked} />
-        </div>
-      ))}
-    </div>
+    <Filters modificator={'row'} />
     <div className={b(block, 'places')}>
       {map(places, (place, key) => (
         <Link
