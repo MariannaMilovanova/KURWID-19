@@ -64,7 +64,7 @@ export default class RulesModal extends PureComponent<ModalStateProps> {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-              <h5 className="mt-4">Peculiarities</h5>
+              <h5 className="mt-4">Specials</h5>
                 <Accordion>
                   <Card>
                     <Card.Header>
