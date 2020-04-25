@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-//import {noop} from 'lodash';
 import {compose, withProps} from 'recompose';
 import {GoogleMap, withGoogleMap} from 'react-google-maps';
 import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
-/*import CustomCircle from './Circle';
-import CustomMarker from './Marker';*/
 import './Map.scss';
 import {b, createBlock} from '../../helpers/bem';
 
@@ -27,7 +24,6 @@ class MapComponent extends Component {
 
   componentDidMount = () => {
     let map, infoWindow;
-    infoWindow = new google.maps.InfoWindow();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -35,11 +31,6 @@ class MapComponent extends Component {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent('Location found.');
-          infoWindow.open(map);
-          //center = map.setCenter(pos)
           this.setState({currentLocation: pos});
         },
         function () {
