@@ -1,7 +1,5 @@
-// import React, {PureComponent, useState} from 'react';
 import React, {PureComponent} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
@@ -67,9 +65,18 @@ export default class RulesModal extends PureComponent<ModalStateProps> {
                 </Card>
               </Accordion>
               <h5 className="mt-4">Peculiarities</h5>
-              <ListGroup>
-                <ListGroup.Item>Separation between desks</ListGroup.Item>
-              </ListGroup>
+                <Accordion>
+                  <Card>
+                    <Card.Header>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="3">
+                            Menu available online via WebApp
+                        </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="3">
+                            <Card.Body>Instead of contagious physical menu you can use your phone to make an order.</Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={() => this.props.closeModel()}>Close</Button>
