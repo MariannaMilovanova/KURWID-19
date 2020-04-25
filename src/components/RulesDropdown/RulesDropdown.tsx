@@ -55,7 +55,7 @@ const options = [
 
 const RulesDropdown = () => (
   <div className={b(block)}>
-    <div className={b(block, 'label')}>Choose type of place to know more about rules:</div>
+    <div className={b(block, 'label')}>Choose your type:</div>
     <Dropdown placeholder="Choose place to read rules" selection options={options} />
   </div>
 );

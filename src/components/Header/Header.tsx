@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {Image} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
 import Authorization from '../Authorization/Authorization';
-//import RulesDropdown from '../RulesDropdown/RulesDropdown';
+import RulesDropdown from '../RulesDropdown/RulesDropdown';
 import Logo from '../../assets/images/logo.png';
 /*Types of places and rules - dropdown with types - on click show modal with rules
 кафе, спортзал, кинотеатр, парихмахерские, стоматологические кабинеты, магазины одежды, супермаркеты
@@ -38,7 +38,7 @@ export default class Header extends PureComponent {
             </Link>
           </div>
         </div>
-        {/* <RulesDropdown />*/}
+         <RulesDropdown />
         <Authorization />
       </div>
     );
