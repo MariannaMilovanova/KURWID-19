@@ -8,5 +8,8 @@
   },
   "rules": {
     "react/prop-types": "warn"
+  },
+  "globals": {
+    "gapi": true
   }
 }

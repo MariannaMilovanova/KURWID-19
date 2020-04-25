@@ -7,6 +7,9 @@ import AboutUs from '../AboutUs/AboutUs'
 import PlaceInformation from '../PlaceInformation/PlaceInformation';
 
 //here will be all routes
+declare global {
+  const gapi: any;
+}
 
 function App() {
   return (
