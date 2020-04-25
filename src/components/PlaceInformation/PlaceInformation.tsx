@@ -58,7 +58,7 @@ export default class PlaceInformation extends PureComponent<{}, PlaceInformation
                                 Fill Feedback Form
                             </Button>
                             <FeedbackForm closeFeedbackModel={() => this.setState({feedbackModalState: false})} feedbackModalState={this.state.feedbackModalState} />
-                            <h3 className="mt-4">Raging:</h3>
+                            <h3 className="mt-4">Rating:</h3>
                             <span>Social distance</span>
                             <ProgressBar now={98} variant="success" className="mb-3"/>
                             <span>Sanitary</span>
@@ -68,7 +68,7 @@ export default class PlaceInformation extends PureComponent<{}, PlaceInformation
                             <span>Screening (Optional rating)</span>
                             <ProgressBar now={99} variant="success" className="mb-3"/>
                             <h4 className="mt-3">Peculiarities</h4>
-                            <span>Separation between desks</span>
+                            <span>Menu available online via WebApp</span>
                             <ProgressBar now={88} variant="success"/>
                         </Col>
                     </Row>
