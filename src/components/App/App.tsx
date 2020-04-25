@@ -13,7 +13,6 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 //here will be all routes
 declare global {
   const gapi: any;
-  const google: any;
 }
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
           <Route path="/blog" component={BlogPage} />
           <Route path="/review" component={ReviewItem} />
           <Route path="/about-us" component={AboutUs} />
-		  <Route path="/lookup" component={FilterPage} />
+          <Route path="/lookup" component={FilterPage} />
         </Switch>
         <Footer />
       </Router>

@@ -11,3 +11,24 @@ export const getRatingColor = (rating: number): any => {
 
   return 'green';
 };
+
+export const styles = [
+  {
+    featureType: 'all',
+    elementType: 'labels.text',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'all',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+];

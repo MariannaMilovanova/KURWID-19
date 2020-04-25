@@ -8,6 +8,8 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    width: 100%;
+    padding-left: 200px;
   }
   &__label {
     font-weight: 700;
@@ -18,7 +20,7 @@
     flex-direction: row;
     &--map {
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
   }
   &__filter {
@@ -41,6 +43,8 @@
     cursor: pointer;
     color: black;
     text-decoration: none;
+    min-height: 315px;
+    box-sizing: border-box;
     &:hover {
       padding: 30px;
       margin: 0;
@@ -52,9 +56,29 @@
     font-size: 14px;
     padding: 5px;
     font-weight: 700;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
   }
-  &__image {}
-  &__address {}
+  &__image-block {
+    height: 200px;
+    width: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  &__address {
+    padding-top: 5px;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    justify-content: center;
+  }
   &__rating {}
   &__see-all {
     font-size: 18px;

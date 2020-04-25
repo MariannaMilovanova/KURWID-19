@@ -1,0 +1,14 @@
+.CustomMarker {
+  &__marker-infoBox {
+    a:hover {
+      text-decoration: none;
+    }
+  .PlacesList__place{
+    margin: 0;
+    &:hover{
+      padding: 20px;
+      margin: 0;
+    }
+  }
+  }
+}
