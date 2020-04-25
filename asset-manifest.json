@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/KURWID-19/static/css/main.7ed3549e.chunk.css",
+    "main.js": "/KURWID-19/static/js/main.6af65fc0.chunk.js",
+    "main.js.map": "/KURWID-19/static/js/main.6af65fc0.chunk.js.map",
+    "runtime-main.js": "/KURWID-19/static/js/runtime-main.dd6a5a0e.js",
+    "runtime-main.js.map": "/KURWID-19/static/js/runtime-main.dd6a5a0e.js.map",
+    "static/css/2.69121389.chunk.css": "/KURWID-19/static/css/2.69121389.chunk.css",
+    "static/js/2.faca6ed6.chunk.js": "/KURWID-19/static/js/2.faca6ed6.chunk.js",
+    "static/js/2.faca6ed6.chunk.js.map": "/KURWID-19/static/js/2.faca6ed6.chunk.js.map",
+    "index.html": "/KURWID-19/index.html",
+    "precache-manifest.6924ef37fb2bda489b3000bfe19dcdb2.js": "/KURWID-19/precache-manifest.6924ef37fb2bda489b3000bfe19dcdb2.js",
+    "service-worker.js": "/KURWID-19/service-worker.js",
+    "static/css/2.69121389.chunk.css.map": "/KURWID-19/static/css/2.69121389.chunk.css.map",
+    "static/css/main.7ed3549e.chunk.css.map": "/KURWID-19/static/css/main.7ed3549e.chunk.css.map",
+    "static/js/2.faca6ed6.chunk.js.LICENSE.txt": "/KURWID-19/static/js/2.faca6ed6.chunk.js.LICENSE.txt",
+    "static/media/comingsoon-square.png": "/KURWID-19/static/media/comingsoon-square.20b1f1d4.png",
+    "static/media/logo.png": "/KURWID-19/static/media/logo.943134e2.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dd6a5a0e.js",
+    "static/css/2.69121389.chunk.css",
+    "static/js/2.faca6ed6.chunk.js",
+    "static/css/main.7ed3549e.chunk.css",
+    "static/js/main.6af65fc0.chunk.js"
+  ]
+}
