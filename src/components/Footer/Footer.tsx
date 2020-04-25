@@ -8,8 +8,8 @@ export default class Footer extends PureComponent {
 		return (
 			<div className="Footer">
 				<p>
-					© 2020 Team CURWID-19
-					<a href="/">Contact Us</a> 
+					© 2020 Team KURWID-19
+					<a href="/"> Contact Us </a> 
 				</p>
 			</div>
 		);
