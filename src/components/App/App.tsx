@@ -3,12 +3,13 @@ import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import './App.scss';
 import HomePage from '../HomePage/HomePage';
 import Header from '../Header/Header';
-import AboutUs from '../AboutUs/AboutUs'
+import AboutUs from '../AboutUs/AboutUs';
 import PlaceInformation from '../PlaceInformation/PlaceInformation';
 
 //here will be all routes
 declare global {
   const gapi: any;
+  const google: any;
 }
 
 function App() {
