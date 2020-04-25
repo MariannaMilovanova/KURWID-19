@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {map} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
@@ -46,6 +46,7 @@ export const Filters = ({modificator}) => (
     ))}
   </div>
 );
+
 const PlacesList = ({label, icon, iconColor}) => (
   <div className={b(block)}>
     <div className={b(block, 'header')}>
@@ -69,5 +70,62 @@ const PlacesList = ({label, icon, iconColor}) => (
     </div>
   </div>
 );
+
+export interface PlacesListFilteredInterface {
+    query?: any;
+}
+
+export function Query() {
+    this.State = { };
+    this.Set = function (val: any) {
+        val.Pattern != null && (this.State.Pattern = val.Pattern);
+        val.RatedUs != null && (this.State.RatedUs = val.RatedUs);
+        val.RatedPeople != null && (this.State.RatedPeople = val.RatedPeople);
+        val.Nearby != null && (this.State.Nearby = val.Nearby);
+        this.Change && this.Change();
+    }
+}
+
+export class PlacesListFiltered extends PureComponent<PlacesListFilteredInterface> {
+
+    state = {
+        Pattern: '',
+        RatedUs: false,
+        RatedPeople: false,
+        Nearby: false,
+    }
+
+    constructor(props) {
+        super(props);
+        var q = props.query;
+        var self = this;
+        q.Change = function () {
+            self.setState(q.State);
+        }
+        this.state = q.State;
+    }
+
+    render() {
+        var filteredPlaces = places.filter(p => p.name.indexOf(this.state.Pattern) != -1);
+        if (this.state.RatedUs) {
+            filteredPlaces = filteredPlaces.filter(p => p.RatedUs);
+        }
+        if (this.state.RatedPeople) {
+            filteredPlaces = filteredPlaces.filter(p => p.RatedPeople);
+        }
+        if (this.state.Nearby) {
+            filteredPlaces = filteredPlaces.filter(p => p.Nearby);
+        }
+
+        return (<div className="PlacesListFiltered"> {
+            map(filteredPlaces, (place, key) => (
+                <Link to={{ pathname: '/place', }}>
+                    <Place {...place} key={key} />
+                </Link>
+            ))
+        }
+        </div>);
+    }
+}
 
 export default PlacesList;

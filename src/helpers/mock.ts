@@ -6,6 +6,7 @@ export const places = [
     pictureURL:
       'https://png.pngtree.com/png-vector/20190521/ourmid/pngtree-hotel-icon-for-personal-and-commercial-use-png-image_1044892.jpg',
     rating: 6.1,
+    RatedUs: true
   },
   {
     name: 'Baczewski Restaurant',
@@ -13,6 +14,7 @@ export const places = [
     location: {lat: 49.8422154, lng: 24.0299315},
     pictureURL: 'https://i.pinimg.com/736x/77/7d/9c/777d9c6e187bfc29677c7de89aa73c5a.jpg',
     rating: 9.1,
+    RatedUs: true
   },
   {
     name: 'Red Pepper',
@@ -20,6 +22,7 @@ export const places = [
     location: {lat: 49.840805, lng: 24.0250969},
     pictureURL: 'https://i.pinimg.com/736x/77/7d/9c/777d9c6e187bfc29677c7de89aa73c5a.jpg',
     rating: 7.1,
+    RatedPeople: true
   },
   {
     name: 'Taurus City Hotel',
@@ -28,6 +31,7 @@ export const places = [
     pictureURL:
         'https://png.pngtree.com/png-vector/20190521/ourmid/pngtree-hotel-icon-for-personal-and-commercial-use-png-image_1044892.jpg',
     rating: 6.1,
+    RatedPeople: true
   },
   {
     name: 'Baczewski Restaurant',
@@ -35,6 +39,7 @@ export const places = [
     location: {lat: 49.8422154, lng: 24.0299315},
     pictureURL: 'https://i.pinimg.com/736x/77/7d/9c/777d9c6e187bfc29677c7de89aa73c5a.jpg',
     rating: 9.1,
+    Nearby: true
   },
   {
     name: 'Red Pepper',
@@ -42,6 +47,7 @@ export const places = [
     location: {lat: 49.840805, lng: 24.0250969},
     pictureURL: 'https://i.pinimg.com/736x/77/7d/9c/777d9c6e187bfc29677c7de89aa73c5a.jpg',
     rating: 5.1,
+    Nearby: true
   }
 ];
 
