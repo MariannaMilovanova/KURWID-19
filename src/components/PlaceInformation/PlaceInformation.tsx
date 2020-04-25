@@ -20,10 +20,18 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Figure from 'react-bootstrap/esm/Figure';
+import FeedbackForm from '../FeedbackForm/FeedbackForm';
+import RulesModal from '../RulesModal/RulesModal';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // const block = createBlock('PlaceInformation');
 
-export default class PlaceInformation extends PureComponent {
+export interface PlaceInformationProps {
+    modalState: boolean;
+    feedbackModalState: boolean;
+}
+export default class PlaceInformation extends PureComponent<{}, PlaceInformationProps> {
+    state = { modalState: false, feedbackModalState: false };
     render() {
         return (
             <div>
@@ -38,11 +46,31 @@ export default class PlaceInformation extends PureComponent {
                         </Col>
                         <Col md={8} sm={8}>
                             <h3 className="mb-4"><span className="text-info">Company Name:</span> Molodo Zeleno</h3>
-                            <h4><span className="text-secondary">Company Type:</span> Cafe/Restaurant</h4>
-                            <h4><span className="text-secondary">Address:</span> Favorite City Leopolis</h4>
-                            <Button variant="primary" size="lg" className="mt-3 text-center">Fill Feedback Form</Button>
+                            <h4>
+                                <span className="text-secondary">Company Type:</span> Cafe/Restaurant <br/>
+                                <a href="#" className="d-inline-block btn-link"  onClick={() => this.setState({ modalState : true})}>
+                                    <small>Read criteria for current type of place</small>
+                                </a>
+                                <RulesModal closeModel={() => this.setState({modalState: false})} modalState={this.state.modalState} />
+                            </h4>
+                            <h4 className="mt-3"><span className="text-secondary">Address:</span> Favorite City Leopolis</h4>
+                            <Button variant="primary" size="lg" className="mt-3 text-center"  onClick={() => this.setState({ feedbackModalState : true})}>
+                                Fill Feedback Form
+                            </Button>
+                            <FeedbackForm closeFeedbackModel={() => this.setState({feedbackModalState: false})} feedbackModalState={this.state.feedbackModalState} />
+                            <h3 className="mt-4">Raging:</h3>
+                            <span>Social distance</span>
+                            <ProgressBar now={98} variant="success" className="mb-3"/>
+                            <span>Sanitary</span>
+                            <ProgressBar now={54} variant="warning" className="mb-3"/>
+                            <span>Personnel</span>
+                            <ProgressBar now={41} variant="danger" className="mb-3"/>
+                            <span>Screening (Optional rating)</span>
+                            <ProgressBar now={99} variant="success" className="mb-3"/>
+                            <h4 className="mt-3">Peculiarities</h4>
+                            <span>Separation between desks</span>
+                            <ProgressBar now={88} variant="success"/>
                         </Col>
-
                     </Row>
                 </Container>
                 <Container className="mt-5">
