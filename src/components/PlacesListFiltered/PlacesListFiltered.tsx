@@ -29,7 +29,7 @@ export default class PlacesListFiltered extends PureComponent<PlacesListFiltered
   }
 
   render() {
-    let filteredPlaces = places.filter((p) => p.name.indexOf(this.state.Pattern) != -1);
+    let filteredPlaces = places.filter((p) => p.name.indexOf(this.state.Pattern) !== -1);
 
     if (this.state.RatedUs) {
       filteredPlaces = filteredPlaces.filter((p) => p.RatedUs);

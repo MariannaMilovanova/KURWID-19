@@ -54,7 +54,6 @@ class CustomMarker extends PureComponent<CustomMarkerProps> {
     const type = get(this, 'props.type', 'yellow');
 
     if (currentLocation) {
-      console.warn(marker)
       return (
         <div className={b(block)}>
           {isOpen && (

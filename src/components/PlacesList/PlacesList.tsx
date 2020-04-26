@@ -1,5 +1,5 @@
 import React from 'react';
-import {map, noop, pull} from 'lodash';
+import {map, pull} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {Header, Icon} from 'semantic-ui-react';
@@ -51,8 +51,6 @@ export const Place = ({name, address, photo, rating}) => {
 };
 
 export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => {
-  console.warn(mapFilters, setFiltersOnMap);
-
   return (
     <div className={b(block, 'filters', [modificator])}>
       {map(filters, (filter, key) => (
@@ -63,7 +61,7 @@ export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => 
             onChange={(e, data) => {
               e.preventDefault();
               if (data.checked) {
-                return setFiltersOnMap([...mapFilters, ...filter.value]);
+                return setFiltersOnMap([...filter.value]);
               }
 
               return setFiltersOnMap(pull(mapFilters, ...filter.value));
@@ -83,7 +81,7 @@ export const PlacesList = ({label, icon, iconColor, places}) => {
           <Icon name={icon} color={iconColor} />
           <Header.Content>{label}</Header.Content>
         </Header>
-        <Filters modificator={'row'} setFiltersOnMap={noop} filters={[]} />
+        {/*<Filters modificator={'row'} setFiltersOnMap={noop} filters={[]} />*/}
       </div>
       <div className={b(block, 'places')}>
         {map(places, (place, key) => (
