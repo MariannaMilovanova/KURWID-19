@@ -21,6 +21,8 @@
     &--map {
       align-items: center;
       justify-content: flex-start;
+      padding-left: 200px;
+      padding-right: 100px;
     }
   }
   &__filter {
@@ -92,4 +94,14 @@
 
 .PlacesListFiltered {
     display: flex;
+}
+
+.FilterPage {
+  padding: 30px;
+  .ui .label {
+    margin-bottom: 10px;
+  }
+  .PlacesListFiltered {
+    padding-top: 30px;
+  }
 }

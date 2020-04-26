@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
-import {map, noop, pull} from 'lodash';
+import React from 'react';
+import {map, pull} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {Header, Icon} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
-import {filters, places} from '../../helpers/mock';
+import {filters} from '../../helpers/mock';
 import {getRatingColor} from '../../helpers';
 import defaultPlacePhoto from '../../assets/images/defaultPlacePhoto.jpg';
 import './PlacesList.scss';
@@ -24,33 +24,33 @@ const block = createBlock('PlacesList');
 
 export const Place = ({name, address, photo, rating}) => {
   return (
-    <Link to={'/place'}>
-      <div className={b(block, 'place')}>
-        <div className={b(block, 'name')} title={name}>
-          {name}
+    <div>
+      <Link to={'/place'}>
+        <div className={b(block, 'place')}>
+          <div className={b(block, 'name')} title={name}>
+            {name}
+          </div>
+          <div className={b(block, 'image')}>
+            <div
+              className={b(block, 'image-block')}
+              style={{
+                backgroundImage: `url(${photo || defaultPlacePhoto})`,
+              }}
+            />
+          </div>
+          <div className={b(block, 'address')} title={address}>
+            {address}
+          </div>
+          <div className={b(block, 'rating')}>
+            Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
+          </div>
         </div>
-        <div className={b(block, 'image')}>
-          <div
-            className={b(block, 'image-block')}
-            style={{
-              backgroundImage: `url(${photo || defaultPlacePhoto})`,
-            }}
-          />
-        </div>
-        <div className={b(block, 'address')} title={address}>
-          {address}
-        </div>
-        <div className={b(block, 'rating')}>
-          Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 
 export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => {
-  console.warn(mapFilters, setFiltersOnMap);
-
   return (
     <div className={b(block, 'filters', [modificator])}>
       {map(filters, (filter, key) => (
@@ -61,7 +61,7 @@ export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => 
             onChange={(e, data) => {
               e.preventDefault();
               if (data.checked) {
-                return setFiltersOnMap([...mapFilters, ...filter.value]);
+                return setFiltersOnMap([...filter.value]);
               }
 
               return setFiltersOnMap(pull(mapFilters, ...filter.value));
@@ -72,7 +72,8 @@ export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => 
     </div>
   );
 };
-const PlacesList = ({label, icon, iconColor, places}) => {
+
+export const PlacesList = ({label, icon, iconColor, places}) => {
   return (
     <div className={b(block)}>
       <div className={b(block, 'header')}>
@@ -80,7 +81,7 @@ const PlacesList = ({label, icon, iconColor, places}) => {
           <Icon name={icon} color={iconColor} />
           <Header.Content>{label}</Header.Content>
         </Header>
-        <Filters modificator={'row'} setFiltersOnMap={noop} filters={[]} />
+        {/*<Filters modificator={'row'} setFiltersOnMap={noop} filters={[]} />*/}
       </div>
       <div className={b(block, 'places')}>
         {map(places, (place, key) => (
@@ -93,66 +94,5 @@ const PlacesList = ({label, icon, iconColor, places}) => {
     </div>
   );
 };
-
-export interface PlacesListFilteredInterface {
-  query?: any;
-}
-
-export function Query() {
-  this.State = {};
-  this.Set = function (val: any) {
-    val.Pattern != null && (this.State.Pattern = val.Pattern);
-    val.RatedUs != null && (this.State.RatedUs = val.RatedUs);
-    val.RatedPeople != null && (this.State.RatedPeople = val.RatedPeople);
-    val.Nearby != null && (this.State.Nearby = val.Nearby);
-    this.Change && this.Change();
-  };
-}
-
-export class PlacesListFiltered extends PureComponent<PlacesListFilteredInterface> {
-  state = {
-    Pattern: '',
-    RatedUs: false,
-    RatedPeople: false,
-    Nearby: false,
-  };
-
-  constructor(props) {
-    super(props);
-    const q = props.query;
-    const self = this;
-    q.Change = function () {
-      self.setState(q.State);
-    };
-    this.state = q.State;
-  }
-
-  render() {
-    let filteredPlaces = places.filter((p) => p.name.indexOf(this.state.Pattern) != -1);
-
-    if (this.state.RatedUs) {
-      filteredPlaces = filteredPlaces.filter((p) => p.RatedUs);
-    }
-
-    if (this.state.RatedPeople) {
-      filteredPlaces = filteredPlaces.filter((p) => p.RatedPeople);
-    }
-
-    if (this.state.Nearby) {
-      filteredPlaces = filteredPlaces.filter((p) => p.Nearby);
-    }
-
-    return (
-      <div className="PlacesListFiltered">
-        {' '}
-        {map(filteredPlaces, (place, key) => (
-          <Link to={{pathname: '/place'}}>
-            <Place {...place} key={key} />
-          </Link>
-        ))}
-      </div>
-    );
-  }
-}
 
 export default PlacesList;

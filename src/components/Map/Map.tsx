@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {compose, withProps} from 'recompose';
-import {filter, map, random, round, isEmpty} from 'lodash';
+import {filter, isEmpty, isEqual, map, random, round} from 'lodash';
 import {GoogleMap, withGoogleMap} from 'react-google-maps';
 import {MAP} from 'react-google-maps/lib/constants';
 import './Map.scss';
@@ -17,8 +17,12 @@ const block = createBlock('Map');
  цвет заведения с рейтингом отображаются в зависимости от оценки
  при клике на метку появляется блок внизу с инофрмацией про заведение (Selected Place)
 */
+export interface MapComponentProps {
+  setPlacesOnMap: (places: any) => void;
+  filters: string[];
+}
 
-class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
+class MapComponent extends PureComponent<MapComponentProps> {
   state = {
     defaultCenter: {lat: 50.45, lng: 30.52},
     currentLocation: {lat: 50.45, lng: 30.52},
@@ -29,7 +33,7 @@ class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
 
   componentDidMount = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      return navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
             lat: position.coords.latitude,
@@ -42,54 +46,70 @@ class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
           console.warn('error');
         }
       );
-    } else {
-      // Browser doesn't support Geolocation
-      console.warn(`Browser doen't support Geolocation`);
     }
+    // Browser doesn't support Geolocation
+    console.warn(`Browser doen't support Geolocation`);
   };
+  componentDidUpdate(prevProps) {
+    const {filters} = prevProps;
+    const {mapObj: map} = this.state;
+
+    if (!isEqual(filters, this.props.filters) && !isEmpty(filters)) {
+      console.warn('status', filters, this.props.filters);
+      //@ts-ignore
+
+      this.forceUpdate(() => this.fetchPlaces(map.getCenter()));
+    }
+  }
   onMapClick = (e) => {
     console.warn('aaa click on map', e);
   };
-  //@ts-ignore
-  fetchPlaces = (coord) => {
+
+  fetchPlaces = (location) => {
+    const {filters} = this.props;
     const {mapObj: map} = this.state;
+    //@ts-ignore
+    console.warn('status', location, filters, map.getCenter(), map);
+
     const request = {
-      location: coord,
+      location,
       radius: 1500,
-      type: ['restaurant', 'bar', 'cafe'],
+      type: filters,
     };
-    console.warn(this.state.currentLocation);
     //@ts-ignore
     const service = new window.google.maps.places.PlacesService(map);
-    //@ts-ignore
-    service.nearbySearch(request, (results, status) => {
-      console.warn('status', results);
-      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        const places = results.map((item) => {
-          return {
-            ...item,
-            position: item.geometry.location,
-            photo: item.photos ? item.photos[0].getUrl() : '',
-            address: item.vicinity,
-            rating: round(random(5, 10, true), 1),
-          };
-        });
-        this.setState({places: filter(places, 'photo')});
-        this.props.setPlacesOnMap(places);
-      }
-    });
+
+    if (service) {
+      service.nearbySearch(request, (results, status) => {
+        console.warn('status', results);
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          const places = results.map((item) => {
+            return {
+              ...item,
+              position: item.geometry.location,
+              photo: item.photos ? item.photos[0].getUrl() : '',
+              address: item.vicinity,
+              rating: round(random(5, 10, true), 1),
+            };
+          });
+          this.setState({places: filter(places, 'photo')});
+          this.props.setPlacesOnMap(places);
+        }
+      });
+    }
   };
   mapMounted = (element) => {
     if (element) {
       const mapObject = element.context[MAP];
       this.setState({mapObj: mapObject});
 
-      this.fetchPlaces(mapObject);
+      //this.fetchPlaces(this.props.setPlacesOnMap);
     }
   };
 
   render() {
     const {currentLocation, places} = this.state;
+    console.warn('status aaaa', places);
 
     return (
       <div>
@@ -122,12 +142,6 @@ class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
               ],
             }}
           >
-            <CustomMarker
-              marker={{position: new google.maps.LatLng(currentLocation.lat, currentLocation.lng)}}
-              selectMarker={() => {}}
-              type={'blue'}
-              currentLocation={true}
-            />
             {!isEmpty(places) &&
               map(places, (marker) => (
                 <CustomMarker
@@ -147,7 +161,7 @@ class MapComponent extends Component<{setPlacesOnMap: (places: any) => void}> {
 export default compose(
   withProps({
     loadingElement: <div style={{height: `100%`}} />,
-    containerElement: <div style={{height: `70vh`}} />,
+    containerElement: <div style={{height: `70vh`, width: `90vw`, margin: '10px auto'}} />,
     mapElement: <div style={{height: `100%`}} />,
   }),
   withGoogleMap
