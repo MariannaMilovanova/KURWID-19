@@ -24,27 +24,29 @@ const block = createBlock('PlacesList');
 
 export const Place = ({name, address, photo, rating}) => {
   return (
-    <Link to={'/place'}>
-      <div className={b(block, 'place')}>
-        <div className={b(block, 'name')} title={name}>
-          {name}
+    <div>
+      <Link to={'/place'}>
+        <div className={b(block, 'place')}>
+          <div className={b(block, 'name')} title={name}>
+            {name}
+          </div>
+          <div className={b(block, 'image')}>
+            <div
+              className={b(block, 'image-block')}
+              style={{
+                backgroundImage: `url(${photo || defaultPlacePhoto})`,
+              }}
+            />
+          </div>
+          <div className={b(block, 'address')} title={address}>
+            {address}
+          </div>
+          <div className={b(block, 'rating')}>
+            Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
+          </div>
         </div>
-        <div className={b(block, 'image')}>
-          <div
-            className={b(block, 'image-block')}
-            style={{
-              backgroundImage: `url(${photo || defaultPlacePhoto})`,
-            }}
-          />
-        </div>
-        <div className={b(block, 'address')} title={address}>
-          {address}
-        </div>
-        <div className={b(block, 'rating')}>
-          Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

@@ -47,8 +47,8 @@ export default class PlacesListFiltered extends PureComponent<PlacesListFiltered
       <div className="PlacesListFiltered">
         {' '}
         {map(filteredPlaces, (place, key) => (
-          <Link to={{pathname: '/place'}}>
-            <Place {...place} key={key} />
+          <Link to={{pathname: '/place'}} key={key}>
+            <Place {...place}/>
           </Link>
         ))}
       </div>
