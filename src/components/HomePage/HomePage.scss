@@ -2,11 +2,12 @@
   padding: 30px 0 100px 0;
   &__heading {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
   }
   &__search-icon {
     padding-left: 10px;
+    padding-right: 100px;
     cursor: pointer;
   }
 }

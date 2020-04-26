@@ -11,11 +11,16 @@ const block = createBlock('HomePage');
 
 export default class HomePage extends Component {
   state = {
-    filters: ['restaurant', 'bar', 'cafe'],
+    filters: ['cafe'],
     places: [],
+    allFilters: ['cafe'],
   };
   setFiltersOnMap = (filters) => {
     this.setState({filters});
+  };
+
+  setAllFilters = (allFilters) => {
+    this.setState({allFilters});
   };
 
   setPlacesOnMap = (places) => {
@@ -28,12 +33,11 @@ export default class HomePage extends Component {
     });
   };
   render() {
-    const {filters, places} = this.state;
+    const {filters, places, allFilters} = this.state;
 
     return (
       <div className={b(block)}>
         <div className={b(block, 'heading')}>
-          <Filters modificator={'map'} filters={filters} setFiltersOnMap={this.setFiltersOnMap} />
           <Input placeholder="Search venue..." onChange={this.searchChange} />
           <Link to={'/lookup'}>
             <div className={b(block, 'search-icon')}>
@@ -41,24 +45,43 @@ export default class HomePage extends Component {
             </div>
           </Link>
         </div>
+        <PlacesList
+          label={'Security Rating of Places in Lviv'}
+          icon={'child'}
+          iconColor={'teal'}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
+          places={take(drop(places, 8), 7)}
+        />
+        <Filters
+          modificator={'map'}
+          filters={filters}
+          setFiltersOnMap={this.setFiltersOnMap}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+        />
         <Map setPlacesOnMap={this.setPlacesOnMap} filters={filters} />
         <PlacesList
           label={'Places Rated By Us'}
           icon={'chess knight'}
           iconColor={'blue'}
           places={take(drop(places, 4), 7)}
-        />
-        <PlacesList
-          label={'Best Places in Lviv'}
-          icon={'child'}
-          iconColor={'teal'}
-          places={take(drop(places, 8), 7)}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
         />
         <PlacesList
           label={'Places Near You'}
           icon={'home'}
           iconColor={'olive'}
           places={take(drop(places, 1), 7)}
+          filters={filters}
+          setAllFilters={this.setAllFilters}
+          allFilters={allFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
         />
       </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import {map, pull} from 'lodash';
+import {includes, map, pull} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {Header, Icon} from 'semantic-ui-react';
@@ -50,7 +50,13 @@ export const Place = ({name, address, photo, rating}) => {
   );
 };
 
-export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => {
+export const Filters = ({
+  modificator,
+  filters: mapFilters,
+  setFiltersOnMap,
+  allFilters,
+  setAllFilters,
+}) => {
   return (
     <div className={b(block, 'filters', [modificator])}>
       {map(filters, (filter, key) => (
@@ -58,11 +64,15 @@ export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => 
           <Checkbox
             label={filter.label}
             defaultChecked={filter.defaultChecked}
+            checked={includes(allFilters, filter.value[0])}
             onChange={(e, data) => {
               e.preventDefault();
               if (data.checked) {
+                setAllFilters([...mapFilters, ...filter.value]);
+
                 return setFiltersOnMap([...filter.value]);
               }
+              setAllFilters([...mapFilters, ...filter.value]);
 
               return setFiltersOnMap(pull(mapFilters, ...filter.value));
             }}
@@ -73,7 +83,16 @@ export const Filters = ({modificator, filters: mapFilters, setFiltersOnMap}) => 
   );
 };
 
-export const PlacesList = ({label, icon, iconColor, places}) => {
+export const PlacesList = ({
+  label,
+  icon,
+  iconColor,
+  places,
+  setFiltersOnMap,
+  filters,
+  allFilters,
+  setAllFilters,
+}) => {
   return (
     <div className={b(block)}>
       <div className={b(block, 'header')}>
@@ -81,7 +100,13 @@ export const PlacesList = ({label, icon, iconColor, places}) => {
           <Icon name={icon} color={iconColor} />
           <Header.Content>{label}</Header.Content>
         </Header>
-        {/*<Filters modificator={'row'} setFiltersOnMap={noop} filters={[]} />*/}
+        <Filters
+          modificator={'row'}
+          setFiltersOnMap={setFiltersOnMap}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={setAllFilters}
+        />
       </div>
       <div className={b(block, 'places')}>
         {map(places, (place, key) => (

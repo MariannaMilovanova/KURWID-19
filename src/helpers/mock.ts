@@ -52,7 +52,7 @@ export const places = [
 ];
 
 export const filters = [
-  {value: ['restaurant'], label: 'Restaurants', defaultChecked: true},
+  {value: ['cafe'], label: 'Restaurants', defaultChecked: true},
   {value: ['hotels'], label: 'Hotels'},
   {
     value: ['cinema'],

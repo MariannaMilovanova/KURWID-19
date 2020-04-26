@@ -68,9 +68,6 @@ class MapComponent extends PureComponent<MapComponentProps> {
   fetchPlaces = (location) => {
     const {filters} = this.props;
     const {mapObj: map} = this.state;
-    //@ts-ignore
-    console.warn('status', location, filters, map.getCenter(), map);
-
     const request = {
       location,
       radius: 1500,
@@ -81,7 +78,6 @@ class MapComponent extends PureComponent<MapComponentProps> {
 
     if (service) {
       service.nearbySearch(request, (results, status) => {
-        console.warn('status', results);
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           const places = results.map((item) => {
             return {
@@ -109,7 +105,6 @@ class MapComponent extends PureComponent<MapComponentProps> {
 
   render() {
     const {currentLocation, places} = this.state;
-    console.warn('status aaaa', places);
 
     return (
       <div>
