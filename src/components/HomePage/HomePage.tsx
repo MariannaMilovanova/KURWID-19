@@ -53,7 +53,7 @@ export default class HomePage extends Component {
           allFilters={allFilters}
           setAllFilters={this.setAllFilters}
           setFiltersOnMap={this.setFiltersOnMap}
-          places={take(drop(places, 8), 7)}
+          places={take(drop(places, 8), 6)}
         />
         <Filters
           modificator={'map'}
@@ -67,7 +67,7 @@ export default class HomePage extends Component {
           label={'Places Rated By Us'}
           icon={'chess knight'}
           iconColor={'blue'}
-          places={take(drop(places, 4), 7)}
+          places={take(drop(places, 4), 6)}
           filters={filters}
           allFilters={allFilters}
           setAllFilters={this.setAllFilters}
@@ -77,7 +77,7 @@ export default class HomePage extends Component {
           label={'Places Near You'}
           icon={'home'}
           iconColor={'olive'}
-          places={take(drop(places, 1), 7)}
+          places={take(drop(places, 1), 6)}
           filters={filters}
           setAllFilters={this.setAllFilters}
           allFilters={allFilters}
