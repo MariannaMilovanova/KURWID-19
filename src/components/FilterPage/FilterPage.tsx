@@ -29,7 +29,7 @@ export default class FilterPage extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div className={'FilterPage'}>
         <Form>
           <Form.Field>
             <Label>What venue are you trying to find?</Label>

@@ -95,3 +95,13 @@
 .PlacesListFiltered {
     display: flex;
 }
+
+.FilterPage {
+  padding: 30px;
+  .ui .label {
+    margin-bottom: 10px;
+  }
+  .PlacesListFiltered {
+    padding-top: 30px;
+  }
+}
