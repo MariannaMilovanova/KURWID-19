@@ -12,7 +12,7 @@ deploy:
     skip_cleanup: true
     access_key_id: $ACCESS_KEY_ID
     secret_access_key: $SECRET_ACCESS_KEY
-    bucket: kurwid-staging
+    bucket: jenyaberlin-kurwid-19-staging
     region: eu-central-1
     acl: public_read
     on:
@@ -21,7 +21,7 @@ deploy:
     skip_cleanup: true
     access_key_id: $ACCESS_KEY_ID
     secret_access_key: $SECRET_ACCESS_KEY
-    bucket: kurwid-prod
+    bucket: jenyaberlin-kurwid-19-production
     region: eu-central-1
     acl: public_read
     on:
