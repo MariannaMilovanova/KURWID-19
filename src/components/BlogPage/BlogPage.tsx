@@ -1,66 +1,71 @@
 import React, {PureComponent} from 'react';
-// import {b, createBlock} from '../../helpers/bem';
+import {Link} from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
-import ImagePlaceholder from 'assets/images/comingsoon-square.png';
+import ImageDimLegend from 'assets/images/dinlegend.jpg';
+import ImageMaisterniaShokoladu from 'assets/images/lvivska-maisternia-shokoladu.jpeg';
+import ImageKryivka from 'assets/images/kryivka.jpg';
 import CardDeck from 'react-bootstrap/CardDeck';
 import {Container, Row} from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import './BlogPage.scss';
+import {b, createBlock} from '../../helpers/bem';
 
-// const block = createBlock('PlaceInformation');
+const block = createBlock('BlogPage');
 
 export default class BlogPage extends PureComponent {
   state = {modalState: false, feedbackModalState: false};
 
   render() {
     return (
-        <div>
+        <div className={b(block)}>
           <Container className="mt-5">
             <Row>
             <CardDeck>
               <Card>
-                <Card.Img variant="top" src={ImagePlaceholder} />
+                <div className="img-wrapper">
+                  <Card.Img variant="top" src={ImageMaisterniaShokoladu} />
+                </div>
                 <Card.Body>
-                  <Card.Title>Card title</Card.Title>
+                  <h5 className="font-weight-bold">26.04.2020</h5>
+                  <Card.Title>Lvivska Maisternia Shokoladu Security check results</Card.Title>
                   <Card.Text>
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
                   </Card.Text>
-                  <Button variant="primary" size="lg" className="mt-3 text-center">
-                    Read more
-                  </Button>
+
+                  <Link to={'/review#1'}> Read more</Link>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">Last updated 3 mins ago</small>
                 </Card.Footer>
               </Card>
               <Card>
-                <Card.Img variant="top" src={ImagePlaceholder} />
+                <div className="img-wrapper">
+                  <Card.Img variant="top" src={ImageDimLegend} />
+                </div>
                 <Card.Body>
-                  <Card.Title>Card title</Card.Title>
+                  <h5 className="font-weight-bold">22.04.2020</h5>
+                  <Card.Title>Dim Legend Security check results</Card.Title>
                   <Card.Text>
-                    This card has supporting text below as a natural lead-in to additional
-                    content.{' '}
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+                    voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magn
                   </Card.Text>
-                  <Button variant="primary" size="lg" className="mt-3 text-center">
-                    Read more
-                  </Button>
+                  <Link to={'/review#1'}> Read more</Link>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">Last updated 3 mins ago</small>
                 </Card.Footer>
               </Card>
               <Card>
-                <Card.Img variant="top" src={ImagePlaceholder} />
+                <div className="img-wrapper">
+                 <Card.Img variant="top" src={ImageKryivka} />
+                </div>
                 <Card.Body>
-                  <Card.Title>Card title</Card.Title>
+                  <h5 className="font-weight-bold">16.04.2020</h5>
+                  <Card.Title>Kryivka security check results</Card.Title>
                   <Card.Text>
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This card has even longer content than the first to
-                    show that equal height action.
+                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
                   </Card.Text>
-                  <Button variant="primary" size="lg" className="mt-3 text-center">
-                    Read more
-                  </Button>
+                  <Link to={'/review#1'}> Read more</Link>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">Last updated 3 mins ago</small>

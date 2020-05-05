@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
+import {Button} from 'semantic-ui-react';
 import {Icon, Image} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
 import './Authorization.scss';
@@ -42,7 +43,7 @@ export default class Authorization extends PureComponent<AuthorizationProps> {
   }
   getUserFromStorage = (id?: string) => {
     const active = id || localStorage.getItem('active');
-    console.warn('active', active);
+
     if (active) {
       const user = JSON.parse(localStorage.getItem(active) as string);
       this.setState({user});
@@ -84,6 +85,16 @@ export default class Authorization extends PureComponent<AuthorizationProps> {
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
             className={this.props.user ? b(block, 'logout-btn') : b(block, 'none')}
             onLogoutSuccess={this.logout}
+            render={(renderProps) => (
+              <Button
+                className={b(block, 'btn', 'logout')}
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                size={'small'}
+              >
+                Logout
+              </Button>
+            )}
           />
         ) : (
           <GoogleLogin
@@ -93,6 +104,17 @@ export default class Authorization extends PureComponent<AuthorizationProps> {
             fetchBasicProfile={true}
             onSuccess={this.responseSuccess}
             onFailure={this.responseError}
+            render={(renderProps) => (
+              <Button
+                className={b(block, 'btn', 'login')}
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                primary
+                size={'small'}
+              >
+                Login
+              </Button>
+            )}
           />
         )}
       </div>

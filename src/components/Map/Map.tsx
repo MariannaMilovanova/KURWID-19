@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {compose, withProps} from 'recompose';
+import {filter, isEmpty, isEqual, map, random, round} from 'lodash';
 import {GoogleMap, withGoogleMap} from 'react-google-maps';
-import InfoBox from 'react-google-maps/lib/components/addons/InfoBox';
+import {MAP} from 'react-google-maps/lib/constants';
 import './Map.scss';
+import CustomMarker from '../CustomMarker/CustomMarker';
+import {getRatingColor} from '../../helpers';
 import {b, createBlock} from '../../helpers/bem';
 
 const block = createBlock('Map');
@@ -14,55 +17,137 @@ const block = createBlock('Map');
  цвет заведения с рейтингом отображаются в зависимости от оценки
  при клике на метку появляется блок внизу с инофрмацией про заведение (Selected Place)
 */
+export interface MapComponentProps {
+  setPlacesOnMap: (places: any) => void;
+  filters: string[];
+}
 
-class MapComponent extends Component {
+class MapComponent extends PureComponent<MapComponentProps> {
   state = {
     defaultCenter: {lat: 50.45, lng: 30.52},
     currentLocation: {lat: 50.45, lng: 30.52},
+    places: [],
+    mapObj: null,
   };
   map = React.createRef();
 
   componentDidMount = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
+      return navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          this.fetchPlaces(pos);
           this.setState({currentLocation: pos});
         },
         function () {
           console.warn('error');
         }
       );
-    } else {
-      // Browser doesn't support Geolocation
-      console.warn(`Browser doen't support Geolocation`);
+    }
+    // Browser doesn't support Geolocation
+    console.warn(`Browser doen't support Geolocation`);
+  };
+  componentDidUpdate(prevProps) {
+    const {filters} = prevProps;
+    const {mapObj: map} = this.state;
+
+    if (!isEqual(filters, this.props.filters) && !isEmpty(filters)) {
+      console.warn('status', filters, this.props.filters);
+      //@ts-ignore
+
+      this.forceUpdate(() => this.fetchPlaces(map.getCenter()));
+    }
+  }
+  onMapClick = (e) => {
+    console.warn('aaa click on map', e);
+  };
+
+  fetchPlaces = (location) => {
+    const {filters} = this.props;
+    const {mapObj: map} = this.state;
+    const request = {
+      location,
+      radius: 1500,
+      type: filters,
+    };
+    //@ts-ignore
+    const service = new window.google.maps.places.PlacesService(map);
+
+    if (service) {
+      service.nearbySearch(request, (results, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          const places = results.map((item) => {
+            return {
+              ...item,
+              position: item.geometry.location,
+              photo: item.photos ? item.photos[0].getUrl() : '',
+              address: item.vicinity,
+              rating: round(random(5, 10, true), 1),
+            };
+          });
+          this.setState({places: filter(places, 'photo')});
+          this.props.setPlacesOnMap(places);
+        }
+      });
+    }
+  };
+  mapMounted = (element) => {
+    if (element) {
+      const mapObject = element.context[MAP];
+      this.setState({mapObj: mapObject});
+
+      //this.fetchPlaces(this.props.setPlacesOnMap);
     }
   };
 
-  onMapClick = () => {
-    console.warn('aaa click on map');
-  };
-
   render() {
-    const {currentLocation} = this.state;
+    const {currentLocation, places} = this.state;
 
     return (
-      <div className={b(block)}>
-        <GoogleMap
-          ref={this.map as any}
-          defaultZoom={15}
-          onClick={this.onMapClick}
-          center={currentLocation}
-        >
-          <InfoBox position={new google.maps.LatLng(currentLocation.lat, currentLocation.lng)}>
-            <div className={b(block, 'location')}>
-              <div>You are here</div>
-            </div>
-          </InfoBox>
-        </GoogleMap>
+      <div>
+        <div className={b(block)}>
+          <GoogleMap
+            defaultZoom={15}
+            onClick={this.onMapClick}
+            center={currentLocation}
+            ref={this.mapMounted}
+            options={{
+              styles: [
+                {
+                  featureType: 'all',
+                  elementType: 'labels.text',
+                  stylers: [
+                    {
+                      visibility: 'off',
+                    },
+                  ],
+                },
+                {
+                  featureType: 'all',
+                  elementType: 'labels.icon',
+                  stylers: [
+                    {
+                      visibility: 'off',
+                    },
+                  ],
+                },
+              ],
+            }}
+          >
+            {!isEmpty(places) &&
+              map(places, (marker) => (
+                <CustomMarker
+                  marker={marker}
+                  key={marker.id}
+                  type={getRatingColor(marker.rating)}
+                  selectMarker={() => {}}
+                />
+              ))}
+          </GoogleMap>
+        </div>
       </div>
     );
   }
@@ -70,10 +155,8 @@ class MapComponent extends Component {
 
 export default compose(
   withProps({
-    googleMapURL:
-      'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places',
     loadingElement: <div style={{height: `100%`}} />,
-    containerElement: <div style={{height: `70vh`}} />,
+    containerElement: <div style={{height: `70vh`, width: `90vw`, margin: '10px auto'}} />,
     mapElement: <div style={{height: `100%`}} />,
   }),
   withGoogleMap

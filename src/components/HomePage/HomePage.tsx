@@ -1,20 +1,95 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
+import {drop, take} from 'lodash';
+import {Icon, Input} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import Map from '../Map/Map';
 import PlacesList, {Filters} from '../PlacesList/PlacesList';
 import {b, createBlock} from '../../helpers/bem';
+import {loadGoogleMaps} from '../../helpers';
 import './HomePage.scss';
 
 const block = createBlock('HomePage');
 
-export default class HomePage extends PureComponent {
+export default class HomePage extends Component {
+  state = {
+    filters: ['cafe'],
+    places: [],
+    allFilters: ['cafe'],
+    googleMapsReady: false,
+  };
+  setFiltersOnMap = (filters) => {
+    this.setState({filters});
+  };
+
+  componentDidMount() {
+    loadGoogleMaps(() => {
+      this.setState({googleMapsReady: true});
+    });
+  }
+  setAllFilters = (allFilters) => {
+    this.setState({allFilters});
+  };
+
+  setPlacesOnMap = (places) => {
+    this.setState({places});
+  };
+  searchChange = (e, data) => {
+    e.preventDefault();
+    this.setState({
+      term: data.value,
+    });
+  };
   render() {
+    const {filters, places, allFilters, googleMapsReady} = this.state;
+
     return (
       <div className={b(block)}>
-        <PlacesList label={'Places Rated By Us'} icon={'chess knight'} iconColor={'blue'} />
-        <PlacesList label={'Best Places Rated By People'} icon={'child'} iconColor={'teal'} />
-        <PlacesList label={'Places Near You'} icon={'home'} iconColor={'olive'} />
-        <Filters modificator={'map'} />
-        <Map />
+        <div className={b(block, 'heading')}>
+          <Input placeholder="Search venue..." onChange={this.searchChange} />
+          <Link to={'/lookup'}>
+            <div className={b(block, 'search-icon')}>
+              <Icon name={'search'} color={'blue'} />
+            </div>
+          </Link>
+        </div>
+        <PlacesList
+          label={'Security Rating of Places in Lviv'}
+          icon={'child'}
+          iconColor={'teal'}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
+          places={take(drop(places, 8), 6)}
+        />
+        <Filters
+          modificator={'map'}
+          filters={filters}
+          setFiltersOnMap={this.setFiltersOnMap}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+        />
+        {googleMapsReady && <Map setPlacesOnMap={this.setPlacesOnMap} filters={filters} />}
+        <PlacesList
+          label={'Places Rated By Us'}
+          icon={'chess knight'}
+          iconColor={'blue'}
+          places={take(drop(places, 4), 6)}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={this.setAllFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
+        />
+        <PlacesList
+          label={'Places Near You'}
+          icon={'home'}
+          iconColor={'olive'}
+          places={take(drop(places, 1), 6)}
+          filters={filters}
+          setAllFilters={this.setAllFilters}
+          allFilters={allFilters}
+          setFiltersOnMap={this.setFiltersOnMap}
+        />
       </div>
     );
   }

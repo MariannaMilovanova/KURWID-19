@@ -1,12 +1,12 @@
 import React from 'react';
-import {map} from 'lodash';
+import {includes, map, pull} from 'lodash';
 import {Checkbox} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Image} from 'semantic-ui-react';
 import {Header, Icon} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
-import {filters, places} from '../../helpers/mock';
+import {filters} from '../../helpers/mock';
 import {getRatingColor} from '../../helpers';
+import defaultPlacePhoto from '../../assets/images/defaultPlacePhoto.jpg';
 import './PlacesList.scss';
 
 /*
@@ -22,50 +22,102 @@ import './PlacesList.scss';
 */
 const block = createBlock('PlacesList');
 
-const Place = ({name, address, rating, pictureURL}) => (
-  <div className={b(block, 'place')}>
-    <div className={b(block, 'name')}>{name}</div>
-    {pictureURL && (
-      <div className={b(block, 'image')}>
-        <Image src={pictureURL} size="small" title={name} wrapped fluid centered circular />
-      </div>
-    )}
-    <div className={b(block, 'address')}>{address}</div>
-    <div className={b(block, 'rating')}>
-      Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
+export const Place = ({name, address, photo, rating}) => {
+  return (
+    <div>
+      <Link to={'/place'}>
+        <div className={b(block, 'place')}>
+          <div className={b(block, 'name')} title={name}>
+            {name}
+          </div>
+          <div className={b(block, 'image')}>
+            <div
+              className={b(block, 'image-block')}
+              style={{
+                backgroundImage: `url(${photo || defaultPlacePhoto})`,
+              }}
+            />
+          </div>
+          <div className={b(block, 'address')} title={address}>
+            {address}
+          </div>
+          <div className={b(block, 'rating')}>
+            Rating: {rating} <Icon name="star" color={getRatingColor(rating)} />
+          </div>
+        </div>
+      </Link>
     </div>
-  </div>
-);
+  );
+};
 
-export const Filters = ({modificator}) => (
-  <div className={b(block, 'filters', [modificator])}>
-    {map(filters, (filter, key) => (
-      <div className={b(block, 'filter')} key={key}>
-        <Checkbox label={filter.label} defaultChecked={filter.defaultChecked} />
-      </div>
-    ))}
-  </div>
-);
-const PlacesList = ({label, icon, iconColor}) => (
-  <div className={b(block)}>
-    <Header as="h2">
-      <Icon name={icon} color={iconColor} />
-      <Header.Content>{label}</Header.Content>
-    </Header>
-    <Filters modificator={'row'} />
-    <div className={b(block, 'places')}>
-      {map(places, (place, key) => (
-        <Link
-          to={{
-            pathname: '/place',
-          }}
-        >
-          <Place {...place} key={key} />
-        </Link>
+export const Filters = ({
+  modificator,
+  filters: mapFilters,
+  setFiltersOnMap,
+  allFilters,
+  setAllFilters,
+}) => {
+  return (
+    <div className={b(block, 'filters', [modificator])}>
+      {map(filters, (filter, key) => (
+        <div className={b(block, 'filter')} key={key}>
+          <Checkbox
+            label={filter.label}
+            defaultChecked={filter.defaultChecked}
+            checked={includes(allFilters, filter.value[0])}
+            onChange={(e, data) => {
+              e.preventDefault();
+              if (data.checked) {
+                setAllFilters([...mapFilters, ...filter.value]);
+
+                return setFiltersOnMap([...filter.value]);
+              }
+              setAllFilters([...mapFilters, ...filter.value]);
+
+              return setFiltersOnMap(pull(mapFilters, ...filter.value));
+            }}
+          />
+        </div>
       ))}
-      <div className={b(block, 'see-all')}>See All</div>
     </div>
-  </div>
-);
+  );
+};
+
+export const PlacesList = ({
+  label,
+  icon,
+  iconColor,
+  places,
+  setFiltersOnMap,
+  filters,
+  allFilters,
+  setAllFilters,
+}) => {
+  return (
+    <div className={b(block)}>
+      <div className={b(block, 'header')}>
+        <Header as="h2">
+          <Icon name={icon} color={iconColor} />
+          <Header.Content>{label}</Header.Content>
+        </Header>
+        <Filters
+          modificator={'row'}
+          setFiltersOnMap={setFiltersOnMap}
+          filters={filters}
+          allFilters={allFilters}
+          setAllFilters={setAllFilters}
+        />
+      </div>
+      <div className={b(block, 'places')}>
+        {map(places, (place, key) => (
+          <Place {...place} key={key} />
+        ))}
+        <Link to={'/lookup'}>
+          <div className={b(block, 'see-all')}>See All</div>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 export default PlacesList;

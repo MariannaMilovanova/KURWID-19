@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 150px;
+  padding: 0 150px;
   background-color: beige;
   &__logo-block {
     display: flex;
@@ -13,5 +13,18 @@
     font-size: 16px;
     color: black;
     font-weight: 700;
+  }
+  &__navigations {
+    display: flex;
+    color: navy;
+    font-weight: 700;
+    font-size: 16px;
+    justify-content: space-between;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+        padding: 10px 40px;
+    }
   }
 }

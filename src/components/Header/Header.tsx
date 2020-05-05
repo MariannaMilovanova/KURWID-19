@@ -4,9 +4,7 @@ import {Link} from 'react-router-dom';
 import {Image} from 'semantic-ui-react';
 import {b, createBlock} from '../../helpers/bem';
 import Authorization from '../Authorization/Authorization';
-import RulesDropdown from '../RulesDropdown/RulesDropdown';
 import Logo from '../../assets/images/logo.png';
-import Nav from 'react-bootstrap/Nav';
 /*Types of places and rules - dropdown with types - on click show modal with rules
 кафе, спортзал, кинотеатр, парихмахерские, стоматологические кабинеты, магазины одежды, супермаркеты
 
@@ -22,39 +20,17 @@ export default class Header extends PureComponent {
     return (
       <div className={b(block)}>
         <div className={b(block, 'logo-block')}>
-          <Link
-            to={{
-              pathname: '/',
-            }}
-          >
-            <Image src={Logo} size="medium" title={'logo'} wrapped fluid centered rounded />
+          <Link to={'/'}>
+            <Image src={Logo} size="medium" title={'logo'} wrapped centered rounded />
           </Link>
-            <Nav activeKey="/">
-                // TODO
-                <Nav.Item>
-                    <Nav.Link href="/">Home</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link href="/place">Place</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link href="/blog">Blog</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link href="/about-us">About us</Nav.Link>
-                </Nav.Item>
-            </Nav>
-          <div className={b(block, 'about-us')}>
-            <Link
-              to={{
-                pathname: '/about-us',
-              }}
-            >
-              About Us
-            </Link>
+          <div className={b(block, 'navigations')}>
+            <Link to={'/'}> Home</Link>
+            <Link to={'/blog'}> Revizor</Link>
+            <Link to={'/about-us'}> About us</Link>
           </div>
         </div>
-         <RulesDropdown />
+
+        <Link className="btn-success btn-lg" to={'/about-us'}> Request Professional Estimation</Link>
         <Authorization />
       </div>
     );
