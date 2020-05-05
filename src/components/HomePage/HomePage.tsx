@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Map from '../Map/Map';
 import PlacesList, {Filters} from '../PlacesList/PlacesList';
 import {b, createBlock} from '../../helpers/bem';
+import {loadGoogleMaps} from '../../helpers';
 import './HomePage.scss';
 
 const block = createBlock('HomePage');
@@ -14,11 +15,17 @@ export default class HomePage extends Component {
     filters: ['cafe'],
     places: [],
     allFilters: ['cafe'],
+    googleMapsReady: false,
   };
   setFiltersOnMap = (filters) => {
     this.setState({filters});
   };
 
+  componentDidMount() {
+    loadGoogleMaps(() => {
+      this.setState({googleMapsReady: true});
+    });
+  }
   setAllFilters = (allFilters) => {
     this.setState({allFilters});
   };
@@ -33,7 +40,7 @@ export default class HomePage extends Component {
     });
   };
   render() {
-    const {filters, places, allFilters} = this.state;
+    const {filters, places, allFilters, googleMapsReady} = this.state;
 
     return (
       <div className={b(block)}>
@@ -62,7 +69,7 @@ export default class HomePage extends Component {
           allFilters={allFilters}
           setAllFilters={this.setAllFilters}
         />
-        <Map setPlacesOnMap={this.setPlacesOnMap} filters={filters} />
+        {googleMapsReady && <Map setPlacesOnMap={this.setPlacesOnMap} filters={filters} />}
         <PlacesList
           label={'Places Rated By Us'}
           icon={'chess knight'}

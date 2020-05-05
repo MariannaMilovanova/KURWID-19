@@ -43,3 +43,20 @@ export function Query() {
     this.Change && this.Change();
   };
 }
+
+export const loadGoogleMaps = (callback: () => void) => {
+  const existingScript = document.getElementById('googleMaps');
+
+  if (!existingScript) {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?v=weekly&key=${process.env.REACT_APP_GOOGLE_MAP_KEY}&libraries=geometry,places,geocoding`;
+    script.id = 'googleMaps';
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      if (callback) callback();
+    };
+  }
+
+  if (existingScript && callback) callback();
+};
