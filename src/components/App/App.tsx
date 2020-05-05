@@ -14,6 +14,9 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 declare global {
   const gapi: any;
   const google: any;
+  interface Window {
+    google: any;
+  }
 }
 
 function App() {
