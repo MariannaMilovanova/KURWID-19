@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - 12.0.0
+deploy:
+  - provider: s3
+    skip_cleanup: true
+    access_key_id: $ACCESS_KEY_ID
+    secret_access_key: $SECRET_ACCESS_KEY
+    bucket: kurwid-staging
+    region: eu-central-1
+    acl: public_read
+    on:
+      branch: develop
+  - provider: s3
+    skip_cleanup: true
+    access_key_id: $ACCESS_KEY_ID
+    secret_access_key: $SECRET_ACCESS_KEY
+    bucket: kurwid-prod
+    region: eu-central-1
+    acl: public_read
+    on:
+      branch: master
