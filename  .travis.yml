@@ -1,12 +1,9 @@
 language: node_js
 node_js:
-  - "stable"
-cache:
-  directories:
-    - node_modules
+  - 12.16.3
 script:
-  - yarn
-  - yarn run build
+  - npm install --global workbox-cli
+  - workbox generateSW workbox-config.js
 deploy:
   - provider: s3
     skip_cleanup: true
