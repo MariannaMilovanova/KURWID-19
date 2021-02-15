@@ -13,6 +13,10 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 //here will be all routes
 declare global {
   const gapi: any;
+  const google: any;
+  interface Window {
+    google: any;
+  }
 }
 
 function App() {
